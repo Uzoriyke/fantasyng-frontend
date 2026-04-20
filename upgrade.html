@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--FantasyNG — upgrade.html ⚡ EXECUTED BY XCLUSIVE ⚡-->
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>FantasyNG — Upgrade Badge 👑</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Cinzel:wght@600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--red:#C8102E;--pink:#FF006E;--gold:#FFD700;--grad:linear-gradient(135deg,#C8102E,#FF006E);--bg:#fff;--bg2:#FFF0F5;--txt:#1A0010;--muted:#8C5A6A;--brd:#F0C0D0;--nav:52px;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);padding-bottom:72px;}
+/* NAV */
+nav.top{position:fixed;inset:0 0 auto;height:var(--nav);background:rgba(255,255,255,.97);border-bottom:1px solid var(--brd);display:flex;align-items:center;padding:0 .875rem;gap:.75rem;z-index:100;box-shadow:0 2px 12px rgba(200,16,46,.08);}
+.back{background:none;border:none;cursor:pointer;color:var(--red);font-size:1rem;padding:.25rem;}
+.logo{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--red);letter-spacing:2px;text-decoration:none;}
+/* MAIN */
+main{padding:calc(var(--nav) + 1.25rem) .875rem 0;max-width:860px;margin:0 auto;}
+/* PAGE HEADER */
+.ph{text-align:center;margin-bottom:1.5rem;}
+.ph h1{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--red);}
+.ph p{color:var(--muted);margin-top:.35rem;font-size:.9rem;}
+/* PLAN TABS */
+.tabs{display:flex;gap:.35rem;justify-content:center;margin-bottom:1.5rem;background:var(--bg2);border-radius:999px;padding:.25rem;max-width:360px;margin-left:auto;margin-right:auto;}
+.tab{flex:1;padding:.5rem .6rem;border:none;border-radius:999px;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;color:var(--muted);transition:all .2s;white-space:nowrap;}
+.tab.act{background:var(--grad);color:#fff;}
+/* GRID */
+.grid{display:grid;gap:1rem;grid-template-columns:1fr;}
+@media(min-width:520px){.grid{grid-template-columns:repeat(3,1fr);}}
+/* BADGE CARDS */
+.bc{background:#fff;border-radius:16px;padding:1.5rem 1.25rem;border:2px solid var(--brd);position:relative;overflow:hidden;}
+.bc.blue{border-color:#1565C0;}
+.bc.red{border-color:#B71C1C;}
+.bc.golden{border-color:#F9A825;background:linear-gradient(135deg,#FFFDE7,#FFF8E1);}
+.bc.pop::before{content:'POPULAR';position:absolute;top:10px;right:-18px;background:var(--grad);color:#fff;font-size:.65rem;font-weight:700;padding:.18rem 1.4rem;transform:rotate(25deg);letter-spacing:1px;}
+.bicon{font-size:2.5rem;margin-bottom:.75rem;display:block;}
+.bname{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;margin-bottom:.3rem;}
+.bname.blue{color:#1565C0;}
+.bname.red{color:#B71C1C;}
+.bname.golden{color:#B8860B;}
+.bprice{font-size:1.5rem;font-weight:700;color:var(--red);margin-bottom:.2rem;}
+.bprice span{font-size:.82rem;font-weight:400;color:var(--muted);}
+.bfeat{margin:.875rem 0;display:flex;flex-direction:column;gap:.35rem;}
+.fi{display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--muted);}
+.fi i{color:#25D366;font-size:.72rem;flex-shrink:0;}
+.ubtn{width:100%;padding:.75rem;border:none;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;transition:all .2s;margin-top:.25rem;}
+.ubtn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.15);}
+.ubtn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.ubtn.blue{background:#1565C0;color:#fff;}
+.ubtn.red{background:#B71C1C;color:#fff;}
+.ubtn.golden{background:linear-gradient(135deg,#F9A825,#B8860B);color:#fff;}
+/* PAYMENT METHODS */
+.pmethods{text-align:center;margin-top:1.25rem;padding:1.25rem;background:var(--bg2);border-radius:12px;border:1px solid var(--brd);}
+.pmethods p{font-size:.82rem;color:var(--muted);margin-bottom:.6rem;}
+.picons{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;}
+.picon{padding:.25rem .65rem;background:#fff;border:1px solid var(--brd);border-radius:7px;font-size:.72rem;font-weight:600;color:var(--txt);}
+/* TOAST */
+#tc{position:fixed;bottom:4.5rem;right:.875rem;z-index:999;display:flex;flex-direction:column;gap:.4rem;}
+@media(min-width:768px){#tc{bottom:1.25rem;}}
+.toast{padding:.6rem .9rem;border-radius:10px;font-size:.82rem;max-width:260px;}
+.toast.ok{background:#1A0010;color:#fff;}
+.toast.err{background:#C8102E;color:#fff;}
+/* spinner */
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .65s linear infinite;vertical-align:middle;margin-right:.3rem;}
+@keyframes sp{to{transform:rotate(360deg);}}
+/* BOTTOM NAV */
+nav.bot{position:fixed;inset:auto 0 0;background:rgba(255,255,255,.97);border-top:1px solid var(--brd);display:flex;z-index:100;}
+nav.bot a{flex:1;display:flex;flex-direction:column;align-items:center;padding:.45rem 0;font-size:.62rem;color:var(--muted);text-decoration:none;}
+nav.bot a.act,nav.bot a:hover{color:var(--red);}
+nav.bot a i{font-size:1.1rem;margin-bottom:.12rem;}
+@media(min-width:768px){nav.bot{display:none;}body{padding-bottom:0;}}
+</style>
+</head>
+<body>
+<nav class="top">
+  <button class="back" onclick="location.href='dashboard.html'"><i class="fas fa-arrow-left"></i></button>
+  <a href="dashboard.html" class="logo">FantasyNG</a>
+  <span style="color:var(--muted);font-size:.85rem;font-weight:600;margin-left:auto;">Upgrade Badge</span>
+</nav>
+
+<main>
+  <div class="ph">
+    <h1>👑 Upgrade Your Badge</h1>
+    <p>More messages · More features · Stand out</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab act" data-p="monthly" onclick="setPlan('monthly')">Monthly</button>
+    <button class="tab" data-p="3months" onclick="setPlan('3months')">3 Months</button>
+    <button class="tab" data-p="6months" onclick="setPlan('6months')">6 Months</button>
+    <button class="tab" data-p="annual" onclick="setPlan('annual')">Annual</button>
+  </div>
+
+  <div class="grid">
+    <!-- BLUE -->
+    <div class="bc blue">
+      <span class="bicon">🔵</span>
+      <div class="bname blue">Blue Badge</div>
+      <div class="bprice" id="pb">₦1,500 <span>/month</span></div>
+      <div class="bfeat">
+        <div class="fi"><i class="fas fa-check-circle"></i>60 messages/day</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>60 likes/day</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>5 posts + 3 photos/day</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Blue verified tick ✓</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Priority in browse</div>
+      </div>
+      <button class="ubtn blue" id="btnBlue" onclick="pay('blue')">Get Blue Badge</button>
+    </div>
+    <!-- RED -->
+    <div class="bc red pop">
+      <span class="bicon">🔴</span>
+      <div class="bname red">Red Badge</div>
+      <div class="bprice" id="pr">₦3,500 <span>/month</span></div>
+      <div class="bfeat">
+        <div class="fi"><i class="fas fa-check-circle"></i>Unlimited messages</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Unlimited likes</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>15 posts + 5 videos/day</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Ghost mode</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Red verified tick ✓</div>
+      </div>
+      <button class="ubtn red" id="btnRed" onclick="pay('red')">Get Red Badge</button>
+    </div>
+    <!-- GOLDEN -->
+    <div class="bc golden">
+      <span class="bicon">🥇</span>
+      <div class="bname golden">Golden Badge</div>
+      <div class="bprice" id="pg">₦6,000 <span>/month</span></div>
+      <div class="bfeat">
+        <div class="fi"><i class="fas fa-check-circle"></i>Everything in Red +</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Unlimited posts</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Anonymous mode</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Posts never expire</div>
+        <div class="fi"><i class="fas fa-check-circle"></i>Golden verified tick ✓</div>
+      </div>
+      <button class="ubtn golden" id="btnGolden" onclick="pay('golden')">Get Golden Badge</button>
+    </div>
+  </div>
+
+  <div class="pmethods">
+    <p>🔒 Secure payment via Paystack — All Nigerian banks supported:</p>
+    <div class="picons">
+      <span class="picon">💳 Card</span>
+      <span class="picon">🏦 Bank Transfer</span>
+      <span class="picon">OPay</span>
+      <span class="picon">PalmPay</span>
+      <span class="picon">Moniepoint</span>
+      <span class="picon">USSD</span>
+      <span class="picon">GTB</span>
+      <span class="picon">Access</span>
+      <span class="picon">Zenith</span>
+      <span class="picon">First Bank</span>
+      <span class="picon">UBA</span>
+    </div>
+  </div>
+</main>
+
+<nav class="bot">
+  <a href="dashboard.html"><i class="fas fa-home"></i>Home</a>
+  <a href="chat.html"><i class="fas fa-comments"></i>Chats</a>
+  <a href="profile.html?id=me"><i class="fas fa-user"></i>Profile</a>
+  <a href="upgrade.html" class="act"><i class="fas fa-crown"></i>Upgrade</a>
+</nav>
+
+<div id="tc"></div>
+
+<script>
+const API='https://fantasyng-backend-1.onrender.com';
+const tok=localStorage.getItem('fng_token');
+const user=JSON.parse(localStorage.getItem('fng_user')||'{}');
+if(!tok)location.href='login.html';
+
+let plan='monthly';
+
+const PRICES={
+  blue:{monthly:1500,'3months':3500,'6months':6000,annual:10000},
+  red:{monthly:3500,'3months':8500,'6months':15000,annual:25000},
+  golden:{monthly:6000,'3months':15000,'6months':27000,annual:45000}
+};
+const LABELS={monthly:'/month','3months':'/3 months','6months':'/6 months',annual:'/year'};
+
+function setPlan(p){
+  plan=p;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('act',t.dataset.p===p));
+  document.getElementById('pb').innerHTML='₦'+PRICES.blue[p].toLocaleString()+' <span>'+LABELS[p]+'</span>';
+  document.getElementById('pr').innerHTML='₦'+PRICES.red[p].toLocaleString()+' <span>'+LABELS[p]+'</span>';
+  document.getElementById('pg').innerHTML='₦'+PRICES.golden[p].toLocaleString()+' <span>'+LABELS[p]+'</span>';
+}
+
+async function pay(tier){
+  const ids={blue:'btnBlue',red:'btnRed',golden:'btnGolden'};
+  const names={blue:'Get Blue Badge',red:'Get Red Badge',golden:'Get Golden Badge'};
+  const btn=document.getElementById(ids[tier]);
+  btn.disabled=true;
+  btn.innerHTML='<span class="spin"></span>Processing...';
+  try{
+    const r=await fetch(API+'/api/payment/initiate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json',Authorization:'Bearer '+tok},
+      body:JSON.stringify({type:'badge',badgeTier:tier,plan})
+    });
+    const d=await r.json();
+    if(d.success&&d.authorizationUrl){
+      location.href=d.authorizationUrl;
+    }else{
+      toast(d.message||'Payment failed. Try again.','err');
+    }
+  }catch(e){toast('Network error. Please try again.','err');}
+  btn.disabled=false;
+  btn.textContent=names[tier];
+}
+
+// Handle return from Paystack
+const ps=new URLSearchParams(location.search);
+const ref=ps.get('reference')||ps.get('trxref');
+if(ref){
+  (async()=>{
+    try{
+      const r=await fetch(API+'/api/payment/verify/'+ref,{headers:{Authorization:'Bearer '+tok}});
+      const d=await r.json();
+      if(d.success){toast('🎉 Payment successful! Badge upgraded!','ok');setTimeout(()=>location.href='dashboard.html',3000);}
+      else toast('Verification failed. Contact support.','err');
+    }catch(e){toast('Verification error.','err');}
+  })();
+}
+
+function toast(msg,type){
+  const c=document.getElementById('tc');
+  const t=document.createElement('div');
+  t.className='toast '+(type||'ok');
+  t.textContent=msg;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),350);},4000);
+}
+</script>
+</body>
+</html>

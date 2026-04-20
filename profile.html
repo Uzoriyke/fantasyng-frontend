@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--FantasyNG — profile.html ⚡ EXECUTED BY XCLUSIVE ⚡-->
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>FantasyNG — Profile</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Cinzel:wght@600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--red:#C8102E;--pink:#FF006E;--gold:#FFD700;--grad:linear-gradient(135deg,#C8102E,#FF006E);--hero:linear-gradient(135deg,#1A0010,#3D0020,#6B0030);--bg:#fff;--bg2:#FFF0F5;--txt:#1A0010;--muted:#8C5A6A;--brd:#F0C0D0;--nav:52px;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);padding-bottom:72px;}
+/* NAV */
+nav{position:fixed;inset:0 0 auto;height:var(--nav);background:rgba(255,255,255,.97);border-bottom:1px solid var(--brd);display:flex;align-items:center;padding:0 .875rem;gap:.75rem;z-index:100;box-shadow:0 2px 12px rgba(200,16,46,.08);}
+.back{background:none;border:none;cursor:pointer;color:var(--red);font-size:1rem;padding:.25rem;}
+.logo{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--red);letter-spacing:2px;text-decoration:none;}
+/* MAIN */
+main{padding-top:var(--nav);max-width:680px;margin:0 auto;}
+/* COVER */
+.cover{height:160px;background:var(--hero);}
+@media(min-width:480px){.cover{height:200px;}}
+/* PROFILE TOP */
+.ptop{background:#fff;border-bottom:1px solid var(--brd);padding:0 1rem 1.25rem;position:relative;}
+.av-wrap{position:absolute;top:-46px;left:1rem;}
+.av{width:90px;height:90px;border-radius:50%;border:3px solid #fff;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.75rem;font-weight:700;overflow:hidden;flex-shrink:0;}
+.av img{width:100%;height:100%;object-fit:cover;}
+@media(min-width:480px){.av{width:100px;height:100px;}.av-wrap{top:-50px;}}
+.pname-row{padding-top:52px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;}
+@media(min-width:480px){.pname-row{padding-top:58px;}}
+.pname{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+.blabel{display:inline-flex;align-items:center;gap:.25rem;padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;}
+.bl-free{background:#eee;color:#666;}
+.bl-blue{background:#1565C0;color:#fff;}
+.bl-red{background:#B71C1C;color:#fff;}
+.bl-golden{background:#F9A825;color:#fff;}
+.bl-executive{background:#fff;color:#F9A825;border:1.5px solid #F9A825;}
+.pmeta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem;font-size:.82rem;color:var(--muted);}
+.mi{display:flex;align-items:center;gap:.3rem;}
+.online-txt{color:#25D366;font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:.3rem;}
+.pbio{margin-top:.75rem;font-size:.9rem;color:#4A1A2C;line-height:1.6;}
+.actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;}
+.btn{padding:.6rem 1.2rem;border:none;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;display:inline-flex;align-items:center;gap:.35rem;}
+.btn-p{background:var(--grad);color:#fff;}
+.btn-o{background:transparent;border:1.5px solid var(--brd);color:var(--muted);}
+.btn-d{background:transparent;border:1.5px solid #C00;color:#C00;}
+/* SECTIONS */
+.sec{background:#fff;border:1px solid var(--brd);border-radius:12px;margin:1rem;padding:1rem;}
+.sec h3{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;margin-bottom:.75rem;}
+.trust-bar{background:var(--brd);border-radius:999px;height:7px;margin-top:.4rem;}
+.trust-fill{height:100%;border-radius:999px;background:var(--grad);transition:width 1s ease;}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.tag{padding:.25rem .7rem;background:var(--bg2);border:1px solid var(--brd);border-radius:999px;font-size:.78rem;color:var(--muted);}
+/* EDIT FORM */
+.eform{display:none;}
+.eform.show{display:block;}
+.fg{margin-bottom:.875rem;}
+.fg label{display:block;font-weight:700;font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem;}
+.fg input,.fg textarea,.fg select{width:100%;padding:.65rem .875rem;border:1.5px solid var(--brd);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;background:var(--bg2);color:var(--txt);outline:none;resize:vertical;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--red);}
+/* LOADING */
+.loading{text-align:center;padding:3rem;color:var(--muted);}
+.ring{display:inline-block;width:36px;height:36px;border:3px solid var(--brd);border-top-color:var(--red);border-radius:50%;animation:sp .8s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg);}}
+/* BOTTOM NAV */
+nav.bot{position:fixed;inset:auto 0 0;background:rgba(255,255,255,.97);border-top:1px solid var(--brd);display:flex;z-index:100;}
+nav.bot a{flex:1;display:flex;flex-direction:column;align-items:center;padding:.45rem 0;font-size:.62rem;color:var(--muted);text-decoration:none;}
+nav.bot a.act,nav.bot a:hover{color:var(--red);}
+nav.bot a i{font-size:1.1rem;margin-bottom:.12rem;}
+@media(min-width:768px){nav.bot{display:none;}body{padding-bottom:0;}}
+</style>
+</head>
+<body>
+<nav>
+  <button class="back" onclick="history.back()"><i class="fas fa-arrow-left"></i></button>
+  <a href="dashboard.html" class="logo">FantasyNG</a>
+</nav>
+
+<main>
+  <div id="content"><div class="loading"><div class="ring"></div><p style="margin-top:.75rem;">Loading profile...</p></div></div>
+</main>
+
+<nav class="bot">
+  <a href="dashboard.html"><i class="fas fa-home"></i>Home</a>
+  <a href="chat.html"><i class="fas fa-comments"></i>Chats</a>
+  <a href="profile.html?id=me" class="act"><i class="fas fa-user"></i>Profile</a>
+  <a href="upgrade.html"><i class="fas fa-crown"></i>Upgrade</a>
+</nav>
+
+<script>
+const API='https://fantasyng-backend-1.onrender.com';
+const tok=localStorage.getItem('fng_token');
+const me=JSON.parse(localStorage.getItem('fng_user')||'{}');
+if(!tok)location.href='login.html';
+
+const params=new URLSearchParams(location.search);
+let pid=params.get('id');
+const isMe=!pid||pid==='me'||pid===me.id;
+if(isMe)pid=me.id;
+
+async function load(){
+  try{
+    const url=isMe?API+'/api/auth/me':API+'/api/users/'+pid;
+    const r=await fetch(url,{headers:{Authorization:'Bearer '+tok}});
+    const d=await r.json();
+    render(d.user||d);
+  }catch(e){
+    document.getElementById('content').innerHTML='<div class="loading"><i class="fas fa-exclamation-circle" style="font-size:1.8rem;opacity:.3;display:block;margin-bottom:.5rem;"></i><p>Failed to load profile.</p></div>';
+  }
+}
+
+function render(u){
+  const bc='bl-'+(u.badge||'free');
+  const bn=(u.badge||'Free').charAt(0).toUpperCase()+(u.badge||'free').slice(1);
+  const avHtml=u.profilePhoto
+    ?'<img src="'+API+u.profilePhoto+'" onerror="this.outerHTML=\'<span style=&quot;font-size:1.75rem;font-weight:700;color:#fff;&quot;>'+(u.username||'U')[0].toUpperCase()+'</span>\'">'
+    :'<span style="font-size:1.75rem;font-weight:700;color:#fff;">'+(u.username||'U')[0].toUpperCase()+'</span>';
+
+  const btns=isMe
+    ?'<button class="btn btn-o" onclick="toggleEdit()"><i class="fas fa-edit"></i> Edit</button>'
+    +'<button class="btn btn-p" onclick="chat(\''+u._id+'\',\''+esc(u.username)+'\')"><i class="fas fa-comment"></i> Message</button>'
+    +'<button class="btn btn-o" onclick="location.href=\'upgrade.html\'"><i class="fas fa-crown"></i> Upgrade</button>'
+    :'<button class="btn btn-p" onclick="chat(\''+u._id+'\',\''+esc(u.username)+'\')"><i class="fas fa-comment"></i> Message</button>'
+    +'<button class="btn btn-d" onclick="blockUser(\''+u._id+'\')"><i class="fas fa-ban"></i> Block</button>';
+
+  const trustW=u.trustScore||0;
+  const loc=u.location&&u.location.city?esc(u.location.city)+(u.location.state?', '+esc(u.location.state):''):'Nigeria';
+
+  document.getElementById('content').innerHTML=
+    '<div class="cover"></div>'
+    +'<div class="ptop">'
+    +'<div class="av-wrap"><div class="av">'+avHtml+'</div></div>'
+    +'<div class="pname-row">'
+    +'<div>'
+    +'<div class="pname">'+esc(u.username)+'<span class="blabel '+bc+'">'+bn+' ✓</span></div>'
+    +(u.isOnline?'<div class="online-txt"><span>●</span> Online now</div>':'<div style="font-size:.75rem;color:var(--muted);">Last seen: '+(u.lastSeen==='Recently active'?'Recently':u.lastSeen?new Date(u.lastSeen).toLocaleDateString():'Hidden')+'</div>')
+    +'</div></div>'
+    +'<div class="pmeta">'
+    +'<span class="mi"><i class="fas fa-'+(u.gender==='female'?'venus':'mars')+'"></i>'+(u.gender||'?')+'</span>'
+    +(u.age?'<span class="mi"><i class="fas fa-birthday-cake"></i>'+u.age+'yrs</span>':'')
+    +'<span class="mi"><i class="fas fa-map-marker-alt"></i>'+loc+'</span>'
+    +(u.metAndSafeBadges>0?'<span class="mi" style="color:#25D366;"><i class="fas fa-shield-alt"></i>'+u.metAndSafeBadges+' Met & Safe</span>':'')
+    +'</div>'
+    +(u.bio?'<div class="pbio">'+esc(u.bio)+'</div>':'<div class="pbio" style="opacity:.4;">No bio yet.</div>')
+    +'<div class="actions">'+btns+'</div>'
+    +'</div>'
+    +'<div class="sec">'
+    +'<h3>Trust Score</h3>'
+    +'<div style="font-size:.82rem;color:var(--muted);margin-bottom:.3rem;">'+trustW+'/100</div>'
+    +'<div class="trust-bar"><div class="trust-fill" style="width:'+trustW+'%"></div></div>'
+    +'</div>'
+    +(u.interests&&u.interests.length>0?'<div class="sec"><h3>Interests</h3><div class="tags">'+u.interests.map(i=>'<span class="tag">'+esc(i)+'</span>').join('')+'</div></div>':'')
+    +(isMe?'<div class="sec eform" id="editForm">'
+    +'<h3>✏️ Edit Profile</h3>'
+    +'<div class="fg"><label>Bio</label><textarea id="eBio" rows="3">'+esc(u.bio||'')+'</textarea></div>'
+    +'<div class="fg"><label>City</label><input id="eCity" value="'+esc((u.location&&u.location.city)||'')+'"/></div>'
+    +'<div class="fg"><label>State</label><input id="eState" value="'+esc((u.location&&u.location.state)||'')+'"/></div>'
+    +'<div class="fg"><label>Profile Photo</label><input type="file" id="ePhoto" accept="image/*"/></div>'
+    +'<div class="fg"><label>I\'m interested in</label><select id="ePref"><option value="both"'+(u.genderPreference==='both'?' selected':'') +'>Both</option><option value="male"'+(u.genderPreference==='male'?' selected':'')+'>Male</option><option value="female"'+(u.genderPreference==='female'?' selected':'')+'>Female</option></select></div>'
+    +'<button class="btn btn-p" onclick="save()" style="width:100%;justify-content:center;"><i class="fas fa-save"></i> Save Changes</button>'
+    +'</div>':'');
+}
+
+function toggleEdit(){
+  const f=document.getElementById('editForm');
+  if(f)f.classList.toggle('show');
+}
+
+async function save(){
+  const fd=new FormData();
+  fd.append('bio',document.getElementById('eBio').value);
+  fd.append('location',JSON.stringify({city:document.getElementById('eCity').value,state:document.getElementById('eState').value}));
+  fd.append('genderPreference',document.getElementById('ePref').value);
+  const ph=document.getElementById('ePhoto').files[0];
+  if(ph)fd.append('photo',ph);
+  try{
+    const r=await fetch(API+'/api/users/profile',{method:'PUT',headers:{Authorization:'Bearer '+tok},body:fd});
+    const d=await r.json();
+    if(d.success){localStorage.setItem('fng_user',JSON.stringify({...me,...d.user}));alert('Profile updated!');load();}
+    else alert(d.message||'Update failed.');
+  }catch(e){alert('Network error.');}
+}
+
+function chat(id,name){
+  localStorage.setItem('fng_chat_receiver',JSON.stringify({_id:id,username:name}));
+  location.href='chat.html?userId='+id;
+}
+
+async function blockUser(id){
+  if(!confirm('Block this user?'))return;
+  try{await fetch(API+'/api/users/block/'+id,{method:'POST',headers:{Authorization:'Bearer '+tok}});alert('User blocked.');location.href='dashboard.html';}
+  catch(e){alert('Failed.');}
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+load();
+</script>
+</body>
+</html>

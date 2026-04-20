@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--FantasyNG — chat.html ⚡ EXECUTED BY XCLUSIVE ⚡-->
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>FantasyNG — Chats</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Cinzel:wght@600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--red:#C8102E;--pink:#FF006E;--grad:linear-gradient(135deg,#C8102E,#FF006E);--bg:#fff;--bg2:#FFF0F5;--txt:#1A0010;--muted:#8C5A6A;--brd:#F0C0D0;--nav:52px;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);display:flex;flex-direction:column;}
+/* TOP NAV */
+.topnav{flex-shrink:0;height:var(--nav);background:rgba(255,255,255,.97);border-bottom:1px solid var(--brd);display:flex;align-items:center;padding:0 .875rem;gap:.75rem;box-shadow:0 2px 12px rgba(200,16,46,.08);}
+.back-btn{background:none;border:none;cursor:pointer;color:var(--red);font-size:1.1rem;padding:.25rem;flex-shrink:0;}
+.logo{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--red);letter-spacing:2px;text-decoration:none;}
+.chat-name{font-weight:700;font-size:.95rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.online-status{font-size:.72rem;color:#25D366;}
+/* LAYOUT */
+.layout{flex:1;display:flex;overflow:hidden;}
+/* SIDEBAR */
+.sidebar{width:260px;border-right:1px solid var(--brd);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+@media(max-width:600px){.sidebar{width:100%;position:absolute;top:var(--nav);left:0;bottom:0;background:#fff;z-index:50;transform:translateX(-100%);transition:transform .25s;}
+.sidebar.open{transform:translateX(0);}
+.main-chat{width:100%;}
+}
+.sb-head{padding:.75rem;border-bottom:1px solid var(--brd);font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:space-between;}
+.sb-list{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;}
+.ci{display:flex;align-items:center;gap:.6rem;padding:.75rem;border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s;}
+.ci:hover,.ci.active{background:var(--bg2);}
+.ci-av{width:38px;height:38px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0;overflow:hidden;}
+.ci-av img{width:100%;height:100%;object-fit:cover;}
+.ci-info{flex:1;overflow:hidden;}
+.ci-name{font-weight:600;font-size:.85rem;display:flex;justify-content:space-between;align-items:center;}
+.ci-prev{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.15rem;}
+.on-dot{width:7px;height:7px;border-radius:50%;background:#25D366;flex-shrink:0;}
+/* MAIN CHAT */
+.main-chat{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.chat-hdr{padding:.75rem;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:.6rem;flex-shrink:0;}
+.ch-av{width:36px;height:36px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex-shrink:0;overflow:hidden;}
+.ch-av img{width:100%;height:100%;object-fit:cover;}
+.ch-info{flex:1;}
+.ch-name{font-weight:700;font-size:.9rem;}
+.ch-st{font-size:.72rem;color:var(--muted);}
+/* MESSAGES */
+.msgs{flex:1;overflow-y:auto;padding:.75rem;display:flex;flex-direction:column;gap:.6rem;-webkit-overflow-scrolling:touch;}
+.bubble{max-width:75%;padding:.6rem .875rem;border-radius:16px;font-size:.88rem;line-height:1.45;word-break:break-word;}
+.sent{align-self:flex-end;background:var(--grad);color:#fff;border-bottom-right-radius:4px;}
+.recv{align-self:flex-start;background:var(--bg2);border:1px solid var(--brd);border-bottom-left-radius:4px;}
+.bt{font-size:.67rem;opacity:.55;margin-top:.2rem;text-align:right;}
+.recv .bt{text-align:left;}
+.typing{align-self:flex-start;background:var(--bg2);border:1px solid var(--brd);padding:.4rem .75rem;border-radius:16px;font-size:.78rem;color:var(--muted);display:none;}
+/* INPUT */
+.inp-area{padding:.6rem .75rem;border-top:1px solid var(--brd);display:flex;align-items:flex-end;gap:.5rem;flex-shrink:0;background:#fff;}
+.inp{flex:1;padding:.6rem .875rem;border:1.5px solid var(--brd);border-radius:20px;font-family:'DM Sans',sans-serif;font-size:.9rem;background:var(--bg2);color:var(--txt);outline:none;resize:none;max-height:100px;line-height:1.4;}
+.inp:focus{border-color:var(--red);}
+.sendbtn{width:38px;height:38px;border-radius:50%;border:none;background:var(--grad);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem;}
+/* EMPTY */
+.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);text-align:center;padding:1.5rem;}
+.empty i{font-size:2.5rem;opacity:.2;margin-bottom:.75rem;}
+.empty-btn{margin-top:1rem;padding:.65rem 1.4rem;border:none;border-radius:999px;background:var(--grad);color:#fff;font-weight:700;cursor:pointer;font-size:.9rem;}
+/* menu btn for mobile */
+.menu-btn{display:none;background:none;border:none;cursor:pointer;color:var(--red);font-size:1.1rem;padding:.25rem;}
+@media(max-width:600px){.menu-btn{display:flex;}}
+</style>
+</head>
+<body>
+<div class="topnav">
+  <button class="back-btn" onclick="location.href='dashboard.html'"><i class="fas fa-arrow-left"></i></button>
+  <span class="logo">FantasyNG</span>
+  <button class="menu-btn" id="menuBtn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+</div>
+
+<div class="layout">
+  <div class="sidebar" id="sidebar">
+    <div class="sb-head">
+      <span>💬 Chats</span>
+      <button onclick="toggleSidebar()" style="background:none;border:none;cursor:pointer;color:var(--muted);display:none;" id="closeBtn"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="sb-list" id="sbList"><div style="text-align:center;padding:2rem;color:var(--muted);font-size:.82rem;">Loading chats...</div></div>
+  </div>
+
+  <div class="main-chat" id="mainChat">
+    <div class="empty" id="emptyState">
+      <i class="fas fa-comments"></i>
+      <p>Select a chat or find someone to message</p>
+      <button class="empty-btn" onclick="location.href='dashboard.html'">Browse Members</button>
+    </div>
+    <div id="chatView" style="display:none;flex-direction:column;height:100%;flex:1;">
+      <div class="chat-hdr">
+        <div class="ch-av" id="chAv">?</div>
+        <div class="ch-info">
+          <div class="ch-name" id="chName">—</div>
+          <div class="ch-st" id="chSt">Offline</div>
+        </div>
+        <button onclick="location.href='profile.html?id='+activeRecvId" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:.85rem;padding:.25rem;">View Profile</button>
+      </div>
+      <div class="msgs" id="msgs"><div class="typing" id="typing">typing...</div></div>
+      <div class="inp-area">
+        <textarea class="inp" id="inp" placeholder="Type a message..." rows="1" oninput="autoSize(this);handleTyping()" onkeydown="kdown(event)"></textarea>
+        <button class="sendbtn" onclick="send()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API='https://fantasyng-backend-1.onrender.com';
+const tok=localStorage.getItem('fng_token');
+const me=JSON.parse(localStorage.getItem('fng_user')||'{}');
+if(!tok)location.href='login.html';
+
+let socket=null,activeRecvId=null,activeChatId=null,typTimer=null;
+const isMobile=window.innerWidth<=600;
+
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const cb=document.getElementById('closeBtn');
+  if(isMobile){sb.classList.toggle('open');cb.style.display=sb.classList.contains('open')?'flex':'none';}
+}
+
+// Init socket
+function initSock(){
+  socket=io(API,{auth:{token:tok}});
+  socket.on('connect',()=>console.log('Socket OK'));
+  socket.on('connect_error',e=>console.warn('Socket err:',e.message));
+  socket.on('receive_message',data=>{
+    const sid=data.message.senderId&&data.message.senderId._id?data.message.senderId._id:data.message.senderId;
+    if(sid===activeRecvId)appendMsg(data.message,false);
+    loadChats();
+  });
+  socket.on('user_typing',d=>{if(d.userId===activeRecvId){document.getElementById('typing').style.display='block';clearTimeout(typTimer);typTimer=setTimeout(()=>document.getElementById('typing').style.display='none',2000);}});
+  socket.on('user_stop_typing',d=>{if(d.userId===activeRecvId)document.getElementById('typing').style.display='none';});
+  socket.on('error',d=>{showErr(d.message);});
+}
+
+async function loadChats(){
+  try{
+    const r=await fetch(API+'/api/chat',{headers:{Authorization:'Bearer '+tok}});
+    const d=await r.json();
+    const el=document.getElementById('sbList');
+    if(d.success&&d.chats.length>0){
+      el.innerHTML=d.chats.map(c=>{
+        const o=c.members.find(m=>m._id!==me.id)||c.members[0];
+        const ph=o&&o.profilePhoto?'<img src="'+API+o.profilePhoto+'" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">':'';
+        return '<div class="ci'+(activeChatId===c._id?' active':'')+'" onclick="openChat(\''+o._id+'\',\''+esc(o.username)+'\',\''+c._id+'\')">'
+          +'<div class="ci-av">'+ph+(ph?'':((o&&o.username)||'U')[0].toUpperCase())+'</div>'
+          +'<div class="ci-info"><div class="ci-name"><span>'+esc((o&&o.username)||'User')+'</span>'+(o&&o.isOnline?'<span class="on-dot"></span>':'')+'</div>'
+          +'<div class="ci-prev">'+esc(c.lastMessage||'Say hello!')+'</div></div></div>';
+      }).join('');
+    }else{
+      el.innerHTML='<div style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.82rem;">No chats yet.<br><a href="dashboard.html" style="color:var(--red);">Browse members →</a></div>';
+    }
+  }catch(e){}
+}
+
+async function openChat(recvId,name,chatId){
+  activeRecvId=recvId; activeChatId=chatId;
+  if(isMobile){document.getElementById('sidebar').classList.remove('open');}
+  document.getElementById('emptyState').style.display='none';
+  const cv=document.getElementById('chatView');
+  cv.style.display='flex';
+  document.getElementById('chName').textContent=name;
+  document.getElementById('chAv').textContent=name[0].toUpperCase();
+  const ms=document.getElementById('msgs');
+  ms.innerHTML='<div class="typing" id="typing">typing...</div>';
+  try{
+    const r=await fetch(API+'/api/chat/'+chatId+'/messages',{headers:{Authorization:'Bearer '+tok}});
+    const d=await r.json();
+    ms.innerHTML='<div class="typing" id="typing" style="display:none">typing...</div>';
+    if(d.success)d.messages.forEach(msg=>{const sid=msg.senderId&&msg.senderId._id?msg.senderId._id:msg.senderId;appendMsg(msg,sid===me.id);});
+    ms.scrollTop=ms.scrollHeight;
+    if(socket)socket.emit('mark_read',{chatId});
+  }catch(e){}
+  loadChats();
+}
+
+function appendMsg(msg,sent){
+  const ms=document.getElementById('msgs');
+  const b=document.createElement('div');
+  b.className='bubble '+(sent?'sent':'recv');
+  const t=new Date(msg.createdAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  b.innerHTML=esc(msg.content)+'<div class="bt">'+t+'</div>';
+  const ty=document.getElementById('typing');
+  if(ty)ms.insertBefore(b,ty); else ms.appendChild(b);
+  ms.scrollTop=ms.scrollHeight;
+}
+
+function send(){
+  const inp=document.getElementById('inp');
+  const txt=inp.value.trim();
+  if(!txt||!activeRecvId)return;
+  socket.emit('send_message',{receiverId:activeRecvId,content:txt,mediaType:'text'});
+  appendMsg({content:txt,createdAt:new Date().toISOString()},true);
+  inp.value=''; inp.style.height='';
+  if(socket)socket.emit('stop_typing',{receiverId:activeRecvId});
+}
+
+let typDebounce=null;
+function handleTyping(){
+  if(activeRecvId&&socket){
+    socket.emit('typing',{receiverId:activeRecvId});
+    clearTimeout(typDebounce);
+    typDebounce=setTimeout(()=>{if(socket)socket.emit('stop_typing',{receiverId:activeRecvId});},1500);
+  }
+}
+
+function kdown(e){if(e.key==='Enter'&&!e.shiftKey&&window.innerWidth>600){e.preventDefault();send();}}
+function autoSize(el){el.style.height='';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showErr(m){alert(m);}
+
+// Check for direct chat from dashboard
+const params=new URLSearchParams(location.search);
+const dirId=params.get('userId');
+
+initSock();
+loadChats();
+
+if(dirId){
+  const rcv=JSON.parse(localStorage.getItem('fng_chat_receiver')||'{}');
+  setTimeout(async()=>{
+    try{
+      const r=await fetch(API+'/api/chat',{headers:{Authorization:'Bearer '+tok}});
+      const d=await r.json();
+      if(d.success){
+        const ex=d.chats.find(c=>c.members.some(m=>m._id===dirId));
+        if(ex){const o=ex.members.find(m=>m._id!==me.id)||ex.members[0];openChat(o._id,o.username,ex._id);}
+        else{
+          activeRecvId=dirId;
+          document.getElementById('emptyState').style.display='none';
+          const cv=document.getElementById('chatView');cv.style.display='flex';
+          document.getElementById('chName').textContent=rcv.username||'New Chat';
+          document.getElementById('chAv').textContent=(rcv.username||'U')[0].toUpperCase();
+          document.getElementById('msgs').innerHTML='<div class="typing" id="typing" style="display:none">typing...</div><div style="text-align:center;padding:2rem;color:var(--muted);font-size:.82rem;">Say hello! Be respectful 💬</div>';
+        }
+      }
+    }catch(e){}
+  },800);
+}
+</script>
+</body>
+</html>

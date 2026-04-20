@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--FantasyNG — dashboard.html ⚡ EXECUTED BY XCLUSIVE ⚡-->
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>FantasyNG — Browse Members</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Cinzel:wght@600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--red:#C8102E;--pink:#FF006E;--grad:linear-gradient(135deg,#C8102E,#FF006E);--bg:#fff;--bg2:#FFF0F5;--txt:#1A0010;--muted:#8C5A6A;--brd:#F0C0D0;--nav:56px;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);padding-bottom:60px;}
+/* NAV */
+nav.top{position:fixed;inset:0 0 auto 0;height:var(--nav);background:rgba(255,255,255,.97);border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 .875rem;z-index:200;box-shadow:0 2px 12px rgba(200,16,46,.1);}
+.logo{font-family:'Cinzel',serif;font-size:1.15rem;color:var(--red);letter-spacing:2px;text-decoration:none;}
+.nav-r{display:flex;align-items:center;gap:.5rem;}
+.av{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.75rem;overflow:hidden;flex-shrink:0;}
+.av img{width:100%;height:100%;object-fit:cover;}
+button.nb{border:none;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700;padding:.4rem .85rem;font-size:.78rem;}
+.nb-p{background:var(--grad);color:#fff;}
+.nb-g{background:transparent;border:1px solid var(--brd);color:var(--muted);}
+/* MAIN */
+main{padding:calc(var(--nav) + .875rem) .875rem 0;}
+/* FILTERS */
+.fbox{background:#fff;border:1px solid var(--brd);border-radius:12px;padding:.875rem;margin-bottom:1rem;}
+.frow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:flex-end;}
+.fg{display:flex;flex-direction:column;gap:.2rem;flex:1;min-width:80px;}
+.fg label{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.fg select,.fg input{padding:.45rem .65rem;border:1.5px solid var(--brd);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;background:var(--bg2);color:var(--txt);outline:none;width:100%;}
+.fg select:focus,.fg input:focus{border-color:var(--red);}
+.srch{padding:.5rem 1.1rem;border:none;border-radius:999px;background:var(--grad);color:#fff;font-weight:700;cursor:pointer;font-size:.85rem;white-space:nowrap;}
+/* HEADER ROW */
+.hrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:.875rem;}
+.htitle{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;}
+.hcnt{color:var(--muted);font-size:.82rem;}
+/* GRID */
+.grid{display:grid;gap:.875rem;grid-template-columns:repeat(2,1fr);}
+@media(min-width:480px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr);}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(5,1fr);}}
+/* MEMBER CARD */
+.mc{background:#fff;border:1px solid var(--brd);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .18s,box-shadow .18s;}
+.mc:active{transform:scale(.97);}
+@media(hover:hover){.mc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(200,16,46,.12);}}
+.mimg{width:100%;aspect-ratio:3/4;object-fit:cover;background:linear-gradient(135deg,#3D0020,#6B0030);display:block;}
+.mno-img{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#3D0020,#6B0030);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:2rem;}
+.mi{padding:.6rem;}
+.mn{font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;margin-bottom:.2rem;}
+.mm{font-size:.72rem;color:var(--muted);}
+.bio{font-size:.72rem;color:var(--muted);margin-top:.25rem;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.msgb{width:100%;margin-top:.5rem;padding:.45rem;border:none;border-radius:999px;background:var(--grad);color:#fff;font-weight:700;cursor:pointer;font-size:.78rem;}
+/* badges */
+.bp{width:15px;height:15px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0;}
+.b-blue{background:#1565C0;color:#fff;}
+.b-red{background:#B71C1C;color:#fff;}
+.b-golden{background:#F9A825;color:#fff;}
+.b-executive{background:#fff;color:#F9A825;border:1.5px solid #F9A825;}
+.online{width:7px;height:7px;border-radius:50%;background:#25D366;flex-shrink:0;}
+/* STATES */
+.st{text-align:center;padding:2.5rem 1rem;color:var(--muted);}
+.st i{font-size:2rem;opacity:.3;display:block;margin-bottom:.5rem;}
+.ring{display:inline-block;width:36px;height:36px;border:3px solid var(--brd);border-top-color:var(--red);border-radius:50%;animation:sp .75s linear infinite;margin-bottom:.75rem;}
+@keyframes sp{to{transform:rotate(360deg);}}
+/* BOTTOM NAV */
+nav.bot{position:fixed;inset:auto 0 0;background:rgba(255,255,255,.97);border-top:1px solid var(--brd);display:flex;z-index:200;}
+nav.bot a{flex:1;display:flex;flex-direction:column;align-items:center;padding:.45rem 0;font-size:.62rem;color:var(--muted);text-decoration:none;}
+nav.bot a.act,nav.bot a:hover{color:var(--red);}
+nav.bot a i{font-size:1.1rem;margin-bottom:.12rem;}
+@media(min-width:768px){nav.bot{display:none;}body{padding-bottom:0;}}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="dashboard.html" class="logo">FantasyNG</a>
+  <div class="nav-r">
+    <div class="av" id="av">?</div>
+    <button class="nb nb-p" onclick="location.href='upgrade.html'">👑 Upgrade</button>
+    <button class="nb nb-g" onclick="out()">Logout</button>
+  </div>
+</nav>
+
+<main>
+  <div class="fbox">
+    <div class="frow">
+      <div class="fg"><label>Gender</label>
+        <select id="fg"><option value="">All</option><option value="female">Female</option><option value="male">Male</option></select>
+      </div>
+      <div class="fg"><label>Min Age</label><input type="number" id="mn" placeholder="18" min="18"/></div>
+      <div class="fg"><label>Max Age</label><input type="number" id="mx" placeholder="60" min="18"/></div>
+      <div class="fg"><label>City</label><input type="text" id="cy" placeholder="Lagos"/></div>
+      <button class="srch" onclick="load()">🔍 Search</button>
+    </div>
+  </div>
+  <div class="hrow">
+    <h2 class="htitle">Browse Members ❤️</h2>
+    <span class="hcnt" id="cnt"></span>
+  </div>
+  <div id="box"><div class="st"><div class="ring"></div><p>Loading members...</p></div></div>
+</main>
+
+<nav class="bot">
+  <a href="dashboard.html" class="act"><i class="fas fa-home"></i>Home</a>
+  <a href="chat.html"><i class="fas fa-comments"></i>Chats</a>
+  <a href="profile.html?id=me"><i class="fas fa-user"></i>Profile</a>
+  <a href="upgrade.html"><i class="fas fa-crown"></i>Upgrade</a>
+</nav>
+
+<script>
+const API='https://fantasyng-backend-1.onrender.com';
+const tok=localStorage.getItem('fng_token');
+const me=JSON.parse(localStorage.getItem('fng_user')||'{}');
+if(!tok)location.href='login.html';
+
+// Setup avatar
+const avEl=document.getElementById('av');
+if(me.profilePhoto)avEl.innerHTML='<img src="'+API+me.profilePhoto+'" onerror="this.parentElement.textContent=\''+(me.username||'U')[0].toUpperCase()+'\'"/>';
+else avEl.textContent=(me.username||'U')[0].toUpperCase();
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+async function load(){
+  const box=document.getElementById('box');
+  box.innerHTML='<div class="st"><div class="ring"></div><p>Loading...</p></div>';
+  let url=API+'/api/users/browse?limit=40';
+  const g=document.getElementById('fg').value;
+  const mn=document.getElementById('mn').value;
+  const mx=document.getElementById('mx').value;
+  const cy=document.getElementById('cy').value;
+  if(g)url+='&gender='+g;
+  if(mn)url+='&minAge='+mn;
+  if(mx)url+='&maxAge='+mx;
+  if(cy)url+='&city='+encodeURIComponent(cy);
+  try{
+    const r=await fetch(url,{headers:{Authorization:'Bearer '+tok}});
+    const d=await r.json();
+    if(d.success&&d.members&&d.members.length>0){
+      document.getElementById('cnt').textContent=d.members.length+' members';
+      box.innerHTML='<div class="grid">'+d.members.map(c).join('')+'</div>';
+    }else{
+      box.innerHTML='<div class="st"><i class="fas fa-heart-broken"></i><p>No members found.<br>Try different filters.</p></div>';
+    }
+  }catch(e){
+    box.innerHTML='<div class="st"><i class="fas fa-wifi"></i><p>Connection error.<br>Please refresh.</p></div>';
+  }
+}
+
+function c(m){
+  const b=m.badge&&m.badge!=='free'?'<span class="bp b-'+m.badge+'">✓</span>':'';
+  const photo=m.profilePhoto
+    ?'<img class="mimg" src="'+API+m.profilePhoto+'" loading="lazy" alt="'+esc(m.username)+'" onerror="this.outerHTML=\'<div class=&quot;mno-img&quot;><i class=&quot;fas fa-user&quot;></i></div>\'">'
+    :'<div class="mno-img"><i class="fas fa-user"></i></div>';
+  const loc=m.location&&m.location.city?esc(m.location.city):'Nigeria';
+  return '<div class="mc" onclick="location.href=\'profile.html?id='+m._id+'\'">'
+    +photo
+    +'<div class="mi">'
+    +'<div class="mn">'+b+'<span>'+esc(m.username)+'</span>'+(m.isOnline?'<span class="online"></span>':'')+'</div>'
+    +'<div class="mm">'+loc+(m.age?' · '+m.age+'yr':'')+'</div>'
+    +(m.bio?'<div class="bio">'+esc(m.bio)+'</div>':'')
+    +'<button class="msgb" onclick="event.stopPropagation();chat(\''+m._id+'\',\''+esc(m.username)+'\')">💬 Message</button>'
+    +'</div></div>';
+}
+
+function chat(id,name){
+  localStorage.setItem('fng_chat_receiver',JSON.stringify({_id:id,username:name}));
+  location.href='chat.html?userId='+id;
+}
+
+function out(){
+  localStorage.removeItem('fng_token');
+  localStorage.removeItem('fng_user');
+  location.href='login.html';
+}
+
+load();
+</script>
+</body>
+</html>
